@@ -52,8 +52,7 @@ looks like this::
 
 To create an identity pool:
 
-#. Log in to the `Amazon Cognito Console <https://console.aws.amazon.com/cognito/home>`_ and click
-   :guilabel:`Create new identity pool`.
+#. Log in to the `Amazon Cognito Console <https://console.aws.amazon.com/cognito/home>`_ , click :guilabel:`Manage Federated Identities`, and then click  :guilabel:`Create new identity pool`.
 
 #. Enter a name for your identity pool and select the checkbox to enable access to unauthenticated
    identities. Click :guilabel:`Create Pool` to create your identity pool.
