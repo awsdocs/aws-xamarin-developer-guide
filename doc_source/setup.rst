@@ -165,7 +165,7 @@ full list of package names for each service:
 Service                                Package name
 ====================================== =======================================
 AWS Core Runtime                       AWSSDK.Core
-Amazon Cognito Sync Manager            AWSSDK.SyncManager
+Amazon Cognito Sync                    AWSSDK.CognitoSync
 Amazon Cognito Identity                AWSSDK.CognitoIdentity
 Amazon DynamoDB                        AWSSDK.DynamoDBv2
 Amazon Mobile Analytics                AWSSDK.MobileAnalytics
@@ -176,7 +176,7 @@ Amazon SNS                             AWSSDK.SimpleNotificationService
 To include a prerelease package, include the -Pre command line argument while installing the package
 like so::
 
-  Install-Package AWSSDK.SyncManager -Pre
+  Install-Package AWSSDK.CognitoSync -Pre
 
 You can find a complete list of AWS service packages at `AWS SDK packages on NuGet
 <https://www.nuget.org/packages?q=+aws-sdk-v3>`_ or at the `AWS SDK for .NET Github Repository
