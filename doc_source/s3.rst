@@ -11,7 +11,7 @@
 .. highlight:: csharp
 
 ##################################
-Amazon Simple Storage Serivce (S3)
+Amazon Simple Storage Service (S3)
 ##################################
 
 What is S3?
