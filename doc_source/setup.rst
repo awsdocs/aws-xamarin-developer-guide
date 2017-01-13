@@ -230,6 +230,12 @@ Step 5: Configure the |sdk-xamarin|
 Set Logging
 -----------
 
+Logging settings are set using the :code:`Amazon.AWSConfigs` class and the :code:`Amazon.Util.LoggingConfig` 
+class which can be found in the :code:`AWSSdk.Core` assembly, available through the Nuget Package Manager 
+in Visual Studio. You can place the logging settings code in the :code:`OnCreate` method in the 
+:code:`MainActivity.cs` file for Android apps or the :code:`AppDelegate.cs` file for iOS apps. You  
+should also add :code:`using Amazon` and :code:`using Amazon.Util` statements to the .cs files.
+
 You can configure logging settings like so::
 
   var loggingConfig = AWSConfigs.LoggingConfig;
