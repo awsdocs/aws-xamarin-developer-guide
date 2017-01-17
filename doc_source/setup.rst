@@ -10,28 +10,28 @@
 
 .. highlight:: csharp
 
-########################
-Set Up the |sdk-xamarin|
-########################
+############################
+Setting Up the |sdk-xamarin|
+############################
 
-To get started with the |sdk-xamarin|, you can set up the SDK and start building a new project, or
-you can integrate the SDK with an existing project. You can also clone and run the `samples
+You can set up the |sdk-xamarin| and start building a new project or you can
+integrate the SDK with an existing project. You can also clone and run the `samples
 <https://github.com/awslabs/aws-sdk-net-samples/tree/master/XamarinSamples>`_ to get a sense of how
-the SDK works.
+the SDK works. Follow these steps to set up and start using the |sdk-xamarin|.
 
 Prerequisites
 =============
 
-Before you can get started using the |sdk-xamarin|, you must do the following:
+Before you can use the |sdk-xamarin|, you must do the following:
 
-- Create an `An AWS Account <http://aws.amazon.com/>`_
-- Install the `Xamarin platform <https://xamarin.com/>`_
-- **Windows users**: Complete `Xamarin: Getting Started for Windows <http://developer.xamarin.com/guides/cross-platform/windows/>`_
-- **Mac users**: Complete `Xamarin: Getting Started for Mac <http://developer.xamarin.com/guides/mac/getting_started/installation/>`_
+- Create an `An AWS Account <http://aws.amazon.com/>`_.
+- Install the `Xamarin platform <https://xamarin.com/>`_.
+- **Windows users:** complete `Xamarin: Getting Started for Windows <http://developer.xamarin.com/guides/cross-platform/windows/>`_
+- **Mac users:** complete `Xamarin: Getting Started for Mac <http://developer.xamarin.com/guides/mac/getting_started/installation/>`_.
 
-After completing the prerequisites, do the following to get started:
+After you complete the prerequisites:
 
-#. Obtain AWS credentials using Amazon Cognito.
+#. Obtain AWS credentials by using |COG|.
 #. Set the required permissions for each AWS service that you will use in your application.
 #. Create a new project in your IDE.
 #. Install the |sdk-xamarin|.
@@ -40,39 +40,40 @@ After completing the prerequisites, do the following to get started:
 Step 1: Obtain AWS Credentials
 ==============================
 
-To make calls to AWS in your application, you must first obtain AWS credentials. You do this using
-Amazon Cognito, an AWS service that allows your application to access the services in the SDK
-without having to embed your private AWS credentials in your application.
+To make calls to AWS in your application, you must first obtain AWS credentials. You do this
+by using |COG|, an AWS service that allows your application to access the services in the SDK
+without having to embed your private AWS credentials in the application.
 
-To get started with Amazon Cognito, you need to create an identity pool. An identity pool is a store
+To get started with |COG|, you need to create an identity pool. An identity pool is a store
 of information that is specific to your account and is identified by a unique identity pool ID that
-looks like this::
+looks like the following.::
 
   "us-east-1:00000000-0000-0000-0000-000000000000"
 
-To create an identity pool:
+.. topic:: To create an identity pool
 
-#. Log in to the `Amazon Cognito Console <https://console.aws.amazon.com/cognito/home>`_ , click :guilabel:`Manage Federated Identities`, and then click  :guilabel:`Create new identity pool`.
+#. Log in to the `Amazon Cognito Console <https://console.aws.amazon.com/cognito/home>`_ , choose
+   :guilabel:`Manage Federated Identities`, and then choose  :guilabel:`Create new identity pool`.
 
 #. Enter a name for your identity pool and select the checkbox to enable access to unauthenticated
-   identities. Click :guilabel:`Create Pool` to create your identity pool.
+   identities. Choose :guilabel:`Create Pool` to create your identity pool.
 
-#. Click :guilabel:`Allow` to create the two default roles associated with your identity pool--one
+#. Choose :guilabel:`Allow` to create the two default roles associated with your identity pool, one
    for unauthenticated users and one for authenticated users. These default roles provide your
-   identity pool access to Cognito Sync and Mobile Analytics.
+   identity pool access to |COGSYNC| and |MAlong|.
 
 Typically, you will only use one identity pool per application.
 
-With your identity pool created, you can obtain AWS credentials by creating a CognitoAWSCredentials
-object (passing it your identity pool id) and then passing it to the constructor of an AWS client
-like so::
+After you create your identity pool, you obtain AWS credentials by creating a
+``CognitoAWSCredentials`` object (passing it your identity pool ID) and then passing it to the
+constructor of an AWS client as follows.::
 
     CognitoAWSCredentials credentials = new CognitoAWSCredentials (
         "us-east-1:00000000-0000-0000-0000-000000000000", // Your identity pool ID
         RegionEndpoint.USEast1 // Region
     );
 
-    //example for Mobile Analytics
+    // Example for |MA|
     analyticsManager = MobileAnalyticsManager.GetOrCreateInstance(
       credentials,
       RegionEndpoint.USEast1, // Region
@@ -83,19 +84,18 @@ Step 2: Set Permissions
 =======================
 
 You need to set permissions for every AWS service that you want to use in your application. First,
-we need to understand how AWS views the users of your application.
+you need to understand how AWS views the users of your application.
 
-When someone uses your application and makes calls to AWS, that end user is assigned an identity by
-AWS. The identity pool that we created in the previous step is where AWS stores these identities.
+When someone uses your application and makes calls to AWS, AWS assigns that user an identity. The
+identity pool that you created in Step 1 is where AWS stores these identities.
 There are two types of identities: authenticated and unauthenticated. Authenticated identities
-belong to users who are authenticated by a public login provider (e.g. Facebook, Amazon, Google).
+belong to users who are authenticated by a public login provider (e.g., Facebook, Amazon, Google).
 Unauthenticated identities belong to guest users.
 
-Every identity is associated with an Identity and Access Management role, or "IAM role" for short.
-In the previous step, you created two IAM roles, one for authenticated users and one for
-unauthenticated users. Every IAM role has a policy or policies attached to it that specify which AWS
-services the identities assigned to that role can access. For example, the following sample policy
-grants access to an S3 bucket::
+Every identity is associated with an |IAMlong| role. In Step 1, you created two |IAM| roles, one
+for authenticated users and one for unauthenticated users. Every |IAM| role has one or more
+policies attached to it that specify which AWS services the identities assigned to that role can
+access. For example, the following sample policy grants access to an |S3| bucket.::
 
     {
       "Statement": [
@@ -114,19 +114,20 @@ grants access to an S3 bucket::
     }
 
 To set permissions for the AWS services that you want to use in your application, simply modify the
-policy attached to the roles:
+policy attached to the roles.
 
-#. Go to the `IAM Console > Roles <https://console.aws.amazon.com/iam/home>`_. Type your identity
-   pool name into the search box. Choose the IAM role that you want to configure. If your
-   application allows both authenticated and unauthenticated users, you will need to grant
+.. topic:: To modify policy attached to an |IAM| role
+
+#. Go to the `IAM Console and choose Roles <https://console.aws.amazon.com/iam/home>`_. Type your
+   identity pool name into the search box. Choose the |IAM| role that you want to configure.
+   If your application allows both authenticated and unauthenticated users, you need to grant
    permissions for both roles.
+#. Click :guilabel:`Attach Policy`, select the policy you want, and then click
+   :guilabel:`Attach Policy`. The default policies for the |IAM| roles that you created
+   provide access to |COGSYNC| and |MA|.
 
-#. Click :guilabel:`Attach Policy`, select your desired policy, and then click :guilabel:`Attach
-   Policy`. The default policies for the IAM roles that we created provide access to Cognito Sync
-   and Mobile Analytics.
-
-For more information about creating policies or to choose from a list of existing policies, see `IAM
-Policies`_.
+For more information about creating policies or to choose from a list of existing policies, see
+`IAM Policies`_.
 
 Step 3: Create a New Project
 ============================
@@ -149,77 +150,75 @@ Step 4: Install the |sdk-xamarin|
 Windows
 -------
 
-Option 1: Install using the Package Manager console
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Option 1: Install by Using the Package Manager Console
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The |sdk-xamarin| consists a set of .NET assemblies. To install the |sdk-xamarin|, run the
 install-package command for each package in the Package Manager console. For example, to install
-Cognito Identity, run::
+Cognito Identity, run the following.::
 
   Install-Package AWSSDK.CognitoIdentity
 
-The AWS Core Runtime and Amazon Cognito Identity packages are required for all projects. Below is a
-full list of package names for each service:
+The AWS Core Runtime and |COGID| packages are required for all projects. The following is a
+full list of package names for each service.
 
 ====================================== =======================================
 Service                                Package name
 ====================================== =======================================
 AWS Core Runtime                       AWSSDK.Core
-Amazon Cognito Sync                    AWSSDK.CognitoSync
-Amazon Cognito Identity                AWSSDK.CognitoIdentity
-Amazon DynamoDB                        AWSSDK.DynamoDBv2
-Amazon Mobile Analytics                AWSSDK.MobileAnalytics
-Amazon S3                              AWSSDK.S3
-Amazon SNS                             AWSSDK.SimpleNotificationService
+|COGSYNC|                              AWSSDK.CognitoSync
+|COGID|                                AWSSDK.CognitoIdentity
+|DDBlong|                              AWSSDK.DynamoDBv2
+|MAlong|                               AWSSDK.MobileAnalytics
+|S3|                                   AWSSDK.S3
+|SNS|                                  AWSSDK.SimpleNotificationService
 ====================================== =======================================
 
-To include a prerelease package, include the -Pre command line argument while installing the package
-like so::
+To include a prerelease package, include the ``-Pre`` command line argument while installing the
+package as follows.::
 
   Install-Package AWSSDK.CognitoSync -Pre
 
-You can find a complete list of AWS service packages at `AWS SDK packages on NuGet
-<https://www.nuget.org/packages?q=+aws-sdk-v3>`_ or at the `AWS SDK for .NET Github Repository
-<https://github.com/aws/aws-sdk-net#nuget-packages>`_.
+You can find a complete list of AWS service packages at `AWS SDK packages on NuGe <https://www.nuget.org/packages?q=+aws-sdk-v3>`_
+or at the `AWS SDK for .NET Github Repository <https://github.com/aws/aws-sdk-net#nuget-packages>`_.
 
-Option 2: Install using your IDE
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Option 2: Install by Using Your IDE
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**If using Visual Studio:**
+**In Visual Studio**
 
-#. Right-click on the project, and then click **Manage NuGet Packages...**
+#. Right-click the project, and then click :guilabel:`Manage NuGet Packages`.
 
-#. In the window that appears, search for the package name that you want to add to your project. To
-   include the prelease NuGet packages, select **Include Prelease**. You can find a complete list of
-   AWS service packages at `AWS SDK packages on NuGet
-   <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
+#. Search for the package name that you want to add to your project. To include the prelease NuGet
+   packages, choose :guilabel:`Include Prelease`. You can find a complete list of
+   AWS service packages at `AWS SDK packages on NuGet <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
 
-#. Select the package and click **Install**.
+#. Choose the package, and then choose :guilabel:`Install`.
 
-**If using Xamarin Studio:**
+**In Xamarin Studio**
 
-#. Right-click on the packages folder, and then click **Add Packages...**
+#. Right-click the packages folder, and then choose :guilabel:`Add Packages`.
 
-#. In the **Add Packages** window, search for the package name that you want to add to your project.
-   To include the prelease NuGet packages, select the **Show pre-release packages** checkbox. You
-   can find a complete list of AWS service packages at `AWS SDK packages on NuGet
-   <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
+#. Search for the package name that you want to add to your project.
+   To include the prelease NuGet packages, choose :guilabel:`Show pre-release packages`. You
+   can find a complete list of AWS service packages at
+   `AWS SDK packages on NuGet <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
 
-#. Select the checkbox next to the desired package, and then click **Add Package**.
+#. Select the checkbox next to the package you want, and then choose :guilabel:`Add Package`.
 
 Mac (OS X)
 ----------
 
-In Xamarin Studio:
+**In Xamarin Studio**
 
-#. Right-click on the packages folder, and then click **Add Packages...**
+#. Right-click the packages folder, and then choose :guilabel:`Add Packages`.
 
-#. In the **Add Packages** window, search for the package name that you want to add to your project.
-   To include the prelease NuGet packages, select the **Show pre-release packages** checkbox. You
-   can find a complete list of AWS service packages at `AWS SDK packages on NuGet
-   <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
+#. Search for the package name that you want to add to your project.
+   To include the prelease NuGet packages, choose :guilabel:`Show pre-release packages`. You
+   can find a complete list of AWS service packages at
+   `AWS SDK packages on NuGet <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
 
-#. Select the checkbox next to the desired package, and then click **Add Package**.
+#. Select the checkbox next to the package you want, and then choose :guilabel:`Add Package`.
 
 .. important:: If you are developing using a Portable Class Library, you must also add the
    AWSSDK.Core NuGet package to all projects deriving from the Portable Class Library.
@@ -230,13 +229,14 @@ Step 5: Configure the |sdk-xamarin|
 Set Logging
 -----------
 
-Logging settings are set using the :code:`Amazon.AWSConfigs` class and the :code:`Amazon.Util.LoggingConfig` 
-class which can be found in the :code:`AWSSdk.Core` assembly, available through the Nuget Package Manager 
-in Visual Studio. You can place the logging settings code in the :code:`OnCreate` method in the 
-:code:`MainActivity.cs` file for Android apps or the :code:`AppDelegate.cs` file for iOS apps. You  
-should also add :code:`using Amazon` and :code:`using Amazon.Util` statements to the .cs files.
+You set logging settings by using the :code:`Amazon.AWSConfigs` class and the :code:`Amazon.Util.LoggingConfig`
+class. You can find these in the :code:`AWSSdk.Core` assembly, available through the Nuget
+Package Manager in Visual Studio. You can place the logging settings code in the
+:code:`OnCreate` method in the :code:`MainActivity.cs` file for Android apps or the
+:code:`AppDelegate.cs` file for iOS apps. You should also add :code:`using Amazon` and
+:code:`using Amazon.Util` statements to the .cs files.
 
-You can configure logging settings like so::
+Configure logging settings as follows.::
 
   var loggingConfig = AWSConfigs.LoggingConfig;
   loggingConfig.LogMetrics = true;
@@ -245,22 +245,22 @@ You can configure logging settings like so::
   loggingConfig.LogTo = LoggingOptions.SystemDiagnostics;
 
 When you log to SystemDiagnostics, the framework internally prints the output to the System.Console.
-If you want to log HTTP responses, set the LogResponses flag. The values can be Always, Never, or
-OnError.
+If you want to log HTTP responses, set the ``LogResponses`` flag. The values can be Always, Never,
+or OnError.
 
-You can also log performance metrics for HTTP requests using the LogMetrics property, the log format
-can be specified using LogMetricsFormat property, valid values are JSON or standard.
+You can also log performance metrics for HTTP requests by using the ``LogMetrics`` property. The
+log format can be specified by using ``LogMetricsFormat`` property. Valid values are JSON or standard.
 
 Set the Region Endpoint
-------------------------
+-----------------------
 
-To configure the default region for all service clients::
+Configure the default region for all service clients as follows.::
 
   AWSConfigs.AWSRegion="us-east-1";
 
-This sets the default region for all the service clients in the SDK. This setting can be overridden
-by explicitly specifying the region at the time of creating an instance of the service client, like
-so::
+This sets the default region for all the service clients in the SDK. You can override this setting
+by explicitly specifying the region at the time of creating an instance of the service client,
+as follows.::
 
   IAmazonS3 s3Client = new AmazonS3Client(credentials,RegionEndpoint.USEast1);
 
@@ -268,7 +268,9 @@ Configure the HTTP Proxy Settings
 ---------------------------------
 
 If your network is behind a proxy, you can configure the proxy settings for the HTTP requests as
-follows::
+follows.
+
+::
 
   var proxyConfig = AWSConfigs.ProxyConfig;
   proxyConfig.Host = "localhost";
@@ -286,37 +288,34 @@ server time and reissuing the request with the correct time.
 
   AWSConfigs.CorrectForClockSkew = true;
 
-This field will be set if a service call resulted in an exception and the SDK has determined that
+This field is set if a service call resulted in an exception and the SDK has determined that
 there is a difference between local and server times.
 
 ::
 
   var offset = AWSConfigs.ClockOffset;
 
-To learn more about clock skew, see `Clock-skew Correction
-<https://blogs.aws.amazon.com/net/post/Tx2HM54KL5LMTGI/Clock-skew-correction>`_ on the AWS Blog.
+To learn more about clock skew, see `Clock-skew Correction <https://blogs.aws.amazon.com/net/post/Tx2HM54KL5LMTGI/Clock-skew-correction>`_
+on the AWS Blog.
 
 Next Steps
 ==========
 
-Now that you have the |sdk-xamarin| set up, you can:
+Now that you have set up the |sdk-xamarin|, you can:
 
-- **Get Started**: Read :doc:`getting-started-xamarin` to see quick-start instructions on how to use
-  and configure the services in the |sdk-xamarin|.
+- **Get started.** Read :doc:`getting-started-xamarin` for quick-start instructions about how to
+  use and configure the services in the |sdk-xamarin|.
 
-- **Explore the Service Topics**: Read about each service in the |sdk-xamarin| and learn how each
-  service works in greater detail.
+- **Explore the service topics.** Learn about each service and how it works in the |sdk-xamarin|.
 
-- **Run the demos**: View our `sample Xamarin applications
-  <https://github.com/awslabs/aws-sdk-net-samples/tree/master/XamarinSamples>`_ that demonstrate
-  common use cases. To run the sample apps, set up the |sdk-xamarin| as described above, and then
-  follow the instructions contained in the README files of the individual samples.
+- **Run the demos.** View our `sample Xamarin applications <https://github.com/awslabs/aws-sdk-net-samples/tree/master/XamarinSamples>`_
+  that demonstrate common use cases. To run the sample apps, set up the |sdk-xamarin|
+  as described previously, and then follow the instructions contained in the README files
+  of the individual samples.
 
-- **Read the API Reference**: View the `API Reference
-  <http://docs.aws.amazon.com/sdkfornet/v3/apidocs/Index.html>`_ for the |sdk-xamarin|.
+- **Learn the APIs.** View the |sdk-xamarin-ref|_.
 
-- **Ask questions**: Post questions on the `AWS Mobile SDK Forums
-  <https://forums.aws.amazon.com/forum.jspa?forumID=88>`_ or `open an issue on Github
-  <https://github.com/awslabs/aws-sdk-xamarin/issues>`_.
+- **Ask questions**: Post questions on the `AWS Mobile SDK Forums <https://forums.aws.amazon.com/forum.jspa?forumID=88>`_
+  or `open an issue on Github <https://github.com/awslabs/aws-sdk-xamarin/issues>`_.
 
 .. _IAM Policies: http://docs.aws.amazon.com/IAM/latest/UserGuide/PoliciesOverview.html
