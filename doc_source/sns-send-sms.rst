@@ -10,9 +10,9 @@
 
 .. highlight:: csharp
 
-======================
-Send SMS Notifications
-======================
+==================================
+Send and Receive SMS Notifications
+==================================
 
 You can use Amazon Simple Notification Service (Amazon SNS) to send and receive Short Message
 Service (SMS) notifications to SMS-enabled mobile phones and smart phones.
