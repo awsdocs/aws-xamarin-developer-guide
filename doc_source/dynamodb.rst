@@ -10,6 +10,8 @@
 
 .. highlight:: csharp
 
+.. _dynamodb:
+
 ===============
 Amazon DynamoDB
 ===============
