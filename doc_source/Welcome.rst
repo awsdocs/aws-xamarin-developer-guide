@@ -1,4 +1,4 @@
-.. Copyright 2010-2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+.. Copyright 2010-2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
    This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
    International License (the "License"). You may not use this file except in compliance with the
@@ -76,8 +76,10 @@ can find a complete list of AWS service packages at `AWS SDK packages on NuGet
 About the AWS Mobile Services
 =============================
 
-Cognito Identity
-----------------
+.. _xamarin-welcome-cognito-identity:
+
+Amazon Cognito Identity
+-----------------------
 
 All calls made to AWS require AWS credentials. Rather than hard-coding your credentials into your
 apps, we recommend that you use `Amazon Cognito Identity
@@ -95,8 +97,8 @@ To get started with Cognito Identity, see :doc:`setup`.
 
 To learn more about Cognito Identity, see :doc:`cognito-identity`.
 
-Cognito Sync
-------------
+Amazon Cognito Sync
+-------------------
 
 Cognito Sync is an AWS service and client library that enables cross-device syncing of
 application-related user data. You can use the Cognito Sync API to synchronize user profile data
