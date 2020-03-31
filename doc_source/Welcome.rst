@@ -48,7 +48,7 @@ information about the AWS SDK for .NET, see:
 * `AWS SDK for .NET Developer Guide <http://docs.aws.amazon.com/AWSSdkDocsNET/latest/V3/DeveloperGuide/welcome.html>`_
 * `AWS SDK for .NET API Reference <http://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html>`_
 
-Compatability
+Compatibility
 =============
 
 The |sdk-xamarin| is shipped as a Portable Class Library (PCL). PCL Support was added in
