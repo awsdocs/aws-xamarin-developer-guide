@@ -25,9 +25,9 @@ Prerequisites
 Before you can use the |sdk-xamarin|, you must do the following:
 
 - Create an `An AWS Account <http://aws.amazon.com/>`_.
-- Install the `Xamarin platform <https://xamarin.com/>`_.
-- **Windows users:** complete `Xamarin: Getting Started for Windows <http://developer.xamarin.com/guides/cross-platform/windows/>`_
-- **Mac users:** complete `Xamarin: Getting Started for Mac <http://developer.xamarin.com/guides/mac/getting_started/installation/>`_.
+- Install the `Xamarin platform <https://docs.microsoft.com/en-us/xamarin/>`_.
+- **Windows users:** complete `Xamarin: Getting Started for Windows <https://docs.microsoft.com/en-us/xamarin/get-started/installation/windows>`_
+- **Mac users:** complete `Xamarin: Getting Started for Mac <https://docs.microsoft.com/en-us/visualstudio/mac/installation?view=vsmac-2019>`_.
 
 After you complete the prerequisites:
 
@@ -132,17 +132,20 @@ For more information about creating policies or to choose from a list of existin
 Step 3: Create a New Project
 ============================
 
+
+Note the cross-platform commercial IDE `Rider from JetBrains <https://www.jetbrains.com/help/rider/Xamarin.html>` includes Xamarin support on all platforms mentioned below.
+
 Windows
 -------
 
-You can use either Visual Studio or Xamarin Studio to develop your application.
+You typically use the Visual Studio IDE to develop your application.
 
 OS X
 ----
 
-You must use the Xamarin Studio IDE to develop your applications. iOS development using Xamarin
+You typically use the Visual Studio IDE to develop your applications. iOS development using Xamarin
 requires access to a Mac to run your app. For more information, see `Installing Xamarin.iOS on
-Windows <http://developer.xamarin.com/guides/ios/getting_started/installation/windows>`_.
+Windows <https://docs.microsoft.com/en-us/xamarin/ios/get-started/installation/windows/?pivots=windows>`_.
 
 Step 4: Install the |sdk-xamarin|
 =================================
@@ -195,21 +198,10 @@ Option 2: Install by Using Your IDE
 
 #. Choose the package, and then choose :guilabel:`Install`.
 
-**In Xamarin Studio**
-
-#. Right-click the packages folder, and then choose :guilabel:`Add Packages`.
-
-#. Search for the package name that you want to add to your project.
-   To include the prelease NuGet packages, choose :guilabel:`Show pre-release packages`. You
-   can find a complete list of AWS service packages at
-   `AWS SDK packages on NuGet <https://www.nuget.org/packages?q=+aws-sdk-v3>`_.
-
-#. Select the checkbox next to the package you want, and then choose :guilabel:`Add Package`.
-
 Mac (OS X)
 ----------
 
-**In Xamarin Studio**
+**In Visual Studio**
 
 #. Right-click the packages folder, and then choose :guilabel:`Add Packages`.
 
